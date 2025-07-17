@@ -1,0 +1,38 @@
+
+
+
+Sample Python Changes
+🔹 In edge_sensor/edge_main.py
+python
+
+import pandas as pd
+import os
+from datetime import datetime
+
+# Simulate signal
+signal_df = pd.DataFrame({
+    "timestamp": [datetime.now()],
+    "signal_value": [42.0]
+})
+
+# Save to shared volume
+shared_dir = "shared_volume"
+os.makedirs(shared_dir, exist_ok=True)
+signal_df.to_csv(os.path.join(shared_dir, "signal_raw.csv"), index=False)
+print(" Signal written by edge_sensor")
+
+
+In quantum_control/quantum_control_main.py
+python
+
+import pandas as pd
+import os
+
+shared_file = os.path.join("shared_volume", "signal_raw.csv")
+
+if os.path.exists(shared_file):
+    df = pd.read_csv(shared_file)
+    print(" Quantum control received signal:")
+    print(df)
+else:
+    print(" No signal file found.")

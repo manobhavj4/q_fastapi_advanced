@@ -1,0 +1,25 @@
+# Web framework
+fastapi==0.111.0
+
+# ASGI server
+uvicorn[standard]==0.29.0
+
+# Data validation and schema
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# Databases
+motor==3.4.0        # MongoDB async client
+asyncpg==0.29.0     # PostgreSQL async driver
+sqlalchemy==2.0.30  # ORM for SQL DBs
+databases==0.9.0    # Async database layer
+
+# Optional: CORS middleware
+fastapi[all]
+
+# Optional: Logging and monitoring
+loguru==0.7.2
+
+# Optional: Authentication (if added later)
+python-jose==3.3.0
+passlib[bcrypt]==1.7.4

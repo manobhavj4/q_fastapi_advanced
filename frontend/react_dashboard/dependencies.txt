@@ -1,0 +1,8 @@
+cd frontend/react_dashboard
+npm install
+npm start
+
+
+
+# npm install -D tailwindcss postcss autoprefixer    (optional)
+# npx tailwindcss init -p     (optional)

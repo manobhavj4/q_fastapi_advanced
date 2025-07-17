@@ -1,0 +1,141 @@
+# ==========================
+# Python
+# ==========================
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+*.log
+*.sqlite3
+*.db
+*.egg
+*.egg-info/
+.env
+.env.*
+.venv/
+venv/
+dist/
+build/
+*.spec
+*.ipynb_checkpoints
+
+# ==========================
+# Jupyter Notebooks
+# ==========================
+.ipynb_checkpoints
+.notebook/
+*.nbconvert.ipynb
+
+# ==========================
+# Virtual Environments
+# ==========================
+env/
+.venv/
+.conda/
+pip-log.txt
+
+# ==========================
+# Machine Learning / AI
+# ==========================
+runs/
+logs/
+checkpoints/
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.onnx
+*.tflite
+*.joblib
+*.pkl
+*.sav
+core/models/
+
+# ==========================
+# Quantum Simulation / Qiskit
+# ==========================
+.qiskit/
+qiskit_cache/
+
+# ==========================
+# FastAPI / Flask
+# ==========================
+instance/
+*.db
+*.sqlite
+__pycache__/
+backend/app/__pycache__/
+
+# ==========================
+# Frontend (React + Streamlit)
+# ==========================
+frontend/react_dashboard/node_modules/
+frontend/react_dashboard/build/
+frontend/react_ui/node_modules/
+frontend/react_ui/.next/
+frontend/react_ui/out/
+frontend/react_ui/.env.local
+
+# ==========================
+# Streamlit
+# ==========================
+.streamlit/
+frontend/streamlit_dashboard/.streamlit/secrets.toml
+
+# ==========================
+# Docker / Containers
+# ==========================
+*.pid
+*.pid.lock
+docker-compose.override.yml
+.dockerignore
+
+# ==========================
+# AWS / Terraform / Infra
+# ==========================
+*.tfstate
+*.tfstate.*
+.terraform/
+infra/.terraform/
+infra/terraform.tfvars
+infra/secrets/
+
+# ==========================
+# Logs / Debug / Output
+# ==========================
+*.log
+logs/
+debug/
+*.out
+*.bak
+*.swp
+nohup.out
+
+# ==========================
+# VS Code / Editors
+# ==========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.DS_Store
+Thumbs.db
+
+# ==========================
+# MacOS/Linux
+# ==========================
+.DS_Store
+__MACOSX/
+
+# ==========================
+# Test / Coverage / Reports
+# ==========================
+.coverage
+htmlcov/
+pytest_cache/
+.tox/
+nosetests.xml
+coverage.xml
+test-output/
+tests/__pycache__/

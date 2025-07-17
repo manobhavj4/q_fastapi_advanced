@@ -1,0 +1,4 @@
+RPi.GPIO
+Adafruit-Blinka
+awscli
+python-terraform

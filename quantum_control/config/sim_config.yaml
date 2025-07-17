@@ -1,0 +1,192 @@
+# Optimized Configuration for Quantum Sensor Simulator
+simulator:
+  name: "QuantumEdgeSensorSim"
+  
+  # Core simulation parameters
+  mode: "synthetic"         # Options: 'synthetic', 'replay', 'realistic'
+  duration_sec: 300
+  sampling_rate_hz: 100
+  
+  # Performance optimizations
+  batch_size: 100           # Process samples in batches for better performance
+  buffer_size: 1000         # Internal buffer size for streaming
+  async_processing: true    # Enable asynchronous data processing
+  
+  # Output configuration
+  output:
+    format: "csv"           # Primary: 'csv', 'json', 'parquet', 'hdf5'
+    compression: "gzip"     # Options: 'none', 'gzip', 'bz2', 'lz4'
+    stream_target: "mqtt"   # Secondary: 'mqtt', 'http', 'websocket', 'file'
+    write_to_file: true
+    file_rotation: true     # Enable log rotation
+    max_file_size_mb: 100   # Rotate when file exceeds this size
+
+# Signal generation parameters
+signal:
+  waveform:
+    type: "sine"            # Options: 'sine', 'square', 'triangle', 'sawtooth', 'chirp', 'random', 'quantum_noise'
+    amplitude: 1.0
+    frequency_hz: 5.0
+    phase_deg: 0
+    harmonics: []           # Add harmonic frequencies: [10.0, 15.0]
+  
+  quantum_effects:
+    enabled: true
+    coherence_time_us: 100  # Quantum coherence time in microseconds
+    decoherence_rate: 0.01  # Rate of quantum decoherence
+    entanglement_noise: 0.02
+
+# Enhanced noise modeling
+noise:
+  enabled: true
+  layers:
+    thermal:
+      type: "gaussian"
+      mean: 0.0
+      std_dev: 0.05
+      temperature_k: 4.2    # Kelvin (cryogenic)
+    
+    shot:
+      type: "poisson"
+      rate: 0.1
+      
+    technical:
+      type: "flicker"       # 1/f noise
+      amplitude: 0.02
+      knee_freq_hz: 1.0
+  
+  correlation:
+    temporal: 0.1           # Temporal correlation coefficient
+    spatial: 0.05           # For multi-channel sensors
+  
+  seed: 42
+
+# System drift simulation
+drift:
+  enabled: true
+  components:
+    offset:
+      type: "linear"        # Options: 'linear', 'exponential', 'sinusoidal', 'step'
+      rate: 0.001
+      
+    gain:
+      type: "exponential"
+      time_constant: 3600   # seconds
+      magnitude: 0.0001
+      
+    frequency:
+      type: "random_walk"
+      step_size: 0.00001
+
+# Anomaly injection for testing
+anomalies:
+  enabled: false
+  probability: 0.001        # Per sample
+  types:
+    - spike: {amplitude: 5.0, duration_samples: 5}
+    - dropout: {duration_samples: 10}
+    - offset_jump: {magnitude: 0.5}
+
+# Output and logging
+output:
+  paths:
+    primary: "data/sensor_dumps/simulated_data_{timestamp}.csv"
+    backup: "data/backup/simulated_data_{timestamp}.csv"
+    metadata: "data/metadata/sim_metadata_{timestamp}.json"
+  
+  logging:
+    level: "INFO"           # DEBUG, INFO, WARNING, ERROR
+    interval_sec: 10
+    statistics: true        # Log statistical summaries
+    performance_metrics: true
+  
+  validation:
+    checksum: true          # Generate data checksums
+    schema_validation: true # Validate output format
+
+# Streaming configuration
+streaming:
+  enabled: true
+  
+  mqtt:
+    broker: "localhost"
+    port: 1883
+    topic: "qusp/simulated/sensor"
+    qos: 1                  # Quality of Service level
+    retain: false
+    use_tls: false
+    
+    # Connection optimization
+    keepalive: 60
+    clean_session: true
+    max_inflight: 20
+    
+    # Authentication (optional)
+    # username: "sensor_user"
+    # password: "sensor_pass"
+    
+    client_id: "sim_sensor_001"
+    
+    # Message batching for performance
+    batch_messages: true
+    batch_size: 10
+    batch_timeout_ms: 100
+  
+  websocket:
+    enabled: false
+    url: "ws://localhost:8080/sensor-stream"
+    
+  http:
+    enabled: false
+    endpoint: "http://localhost:8080/api/sensor-data"
+    method: "POST"
+    headers:
+      Content-Type: "application/json"
+    timeout_sec: 5
+
+# Performance and resource management
+performance:
+  memory:
+    max_buffer_mb: 512      # Maximum memory buffer
+    gc_interval: 1000       # Garbage collection interval (samples)
+    
+  cpu:
+    max_threads: 4          # Maximum worker threads
+    priority: "normal"      # Process priority
+    
+  disk:
+    write_cache_mb: 64      # Disk write cache size
+    sync_interval_sec: 30   # Force disk sync interval
+
+# Calibration and validation
+calibration:
+  enabled: false
+  reference_signal:
+    amplitude: 1.0
+    frequency_hz: 1.0
+  
+  validation_tests:
+    - amplitude_check: {tolerance: 0.01}
+    - frequency_stability: {max_deviation: 0.001}
+    - noise_floor: {max_level: 0.1}
+
+# Advanced features
+advanced:
+  multi_channel:
+    enabled: false
+    channels: 1
+    channel_correlation: 0.0
+    
+  time_synchronization:
+    enabled: true
+    ntp_server: "pool.ntp.org"
+    precision_us: 1
+    
+  fault_injection:
+    enabled: false
+    scenarios: []
+    
+  hardware_simulation:
+    adc_bits: 16            # ADC resolution
+    sample_jitter_ns: 100   # Sampling time jitter
+    gain_mismatch: 0.001    # Channel gain mismatch

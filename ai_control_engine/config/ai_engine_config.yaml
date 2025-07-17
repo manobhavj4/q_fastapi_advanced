@@ -1,0 +1,27 @@
+thresholds:
+  fidelity_min: 0.90
+  drift_alert: 0.07
+  anomaly_score: 0.85
+
+models:
+  drift_predictor: "models/lstm_drift_predictor.onnx"
+  rl_tuner: "models/qubit_rl_tuner.pt"
+  qec_decoder: "models/qec_decoder_cnn.pt"
+  digital_twin: "models/digital_twin_net.onnx"
+
+flags:
+  enable_logging: true
+  simulate_mode: false
+
+
+rl_tuner:
+  pulse_duration: 20
+  voltage_range: [-1.0, 1.0]
+  target_gate: X
+  noise_profile: "thermal"
+  learning_rate: 0.0003
+  n_steps: 2048
+  batch_size: 64
+  total_timesteps: 10000
+  model_save_path: "./data/models/rl_tuner"
+  tensorboard_log: "./runs/rl_tuner"

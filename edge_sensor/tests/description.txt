@@ -1,0 +1,11 @@
+Column Name	                  Type                    	Description
+timestamp	                 datetime	            Time when the sensor reading was recorded.
+sensor_id	                 string	                Identifier for the quantum sensor (e.g., Q1, Q2, Q3, Q4).
+temperature_K	             float	                Temperature in Kelvin measured by the sensor.
+magnetic_field_T             float	                Magnetic field strength in Tesla (T).
+qubit_state	string	         Quantum                state of the qubit (`
+signal_strength_dBm	         float	                Signal power strength in decibel-milliwatts (dBm).
+noise_level_dB	             float	                Measured background noise level in decibels (dB).
+voltage_mV	                 float	                Voltage applied to/read from the sensor in millivolts (mV).
+current_uA	                 float	                Current flowing through the sensor in microamperes (μA).
+is_anomaly	                 integer	            Binary flag: 1 indicates an anomaly detected, 0 indicates normal data.

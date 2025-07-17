@@ -1,0 +1,109 @@
+
+# ========================
+# CORE PYTHON PACKAGES
+# ========================
+numpy
+scipy
+pandas
+matplotlib
+seaborn
+plotly
+
+# ========================
+# MACHINE LEARNING / AI
+# ========================
+# torch
+# torchvision
+# scikit-learn
+# tensorflow
+# stable-baselines3
+# gym
+# optuna
+# xgboost
+# lightgbm
+
+# ========================
+# DEEP LEARNING (edge inference)
+# ========================
+onnx
+onnxruntime
+# tflite-runtime
+
+# ========================
+# QUANTUM COMPUTING
+# ========================
+qutip
+qiskit
+qiskit-aer
+qiskit-ibmq-provider
+qiskit-machine-learning
+
+# ========================
+# SIGNAL PROCESSING & SENSING
+# ========================
+soundfile
+librosa
+pyserial
+
+########### use RPi.GPIO only when using in raspberry pi
+# RPi.GPIO
+
+# ========================
+# BACKEND / APIs
+# ========================
+fastapi
+flask
+uvicorn
+gunicorn
+python-multipart
+pydantic
+httpx
+requests
+
+# ========================
+# DATABASES
+# ========================
+motor
+pymongo
+psycopg2-binary
+
+# ========================
+# FRONTEND DASHBOARDS
+# ========================
+# streamlit
+# dash
+# flask-cors
+
+# ========================
+# CLOUD & DEPLOYMENT
+# ========================
+boto3
+python-dotenv
+docker
+python-decouple
+
+# ========================
+# VISUALIZATION & DEVTOOLS
+# ========================
+# jupyterlab
+# notebook
+# ipywidgets
+# nbformat
+
+# ========================
+# TESTING / MONITORING
+# ========================
+pytest
+pytest-asyncio
+coverage
+locust
+loguru
+tqdm
+
+# ========================
+# UTILITIES
+# ========================
+pillow
+typing-extensions
+joblib
+tabulate

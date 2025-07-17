@@ -1,0 +1,99 @@
+➤ Submit a Job
+curl -X POST http://localhost:8000/submit \
+  -H "Content-Type: application/json" \
+  -d '{"job_type": "qsim", "parameters": {"qubits": 5, "depth": 3}}'
+
+➤ Check Status
+curl http://localhost:8000/status/{job_id}
+
+🛠️ To Run Locally:
+pip install fastapi uvicorn
+uvicorn quantum_job_api:app --reload
+
+
+
+# 🧠 quantum_control Subsystem – QuSP Platform
+
+The `quantum_control` module is a core subsystem of the **QuSP (Quantum Sensing and Processing)** platform. It integrates quantum physics, AI optimization, reinforcement learning, and noise modeling to simulate, tune, and optimize quantum dot-based or qubit-based control systems.
+
+---
+
+## 📦 Directory Structure
+
+quantum_control/
+├── init.py # Package initializer
+├── simulator.py # Core Qiskit and QuTiP-based quantum dot simulation
+├── auto_tuner.py # RL agent for automated voltage tuning
+├── gate_optimizer.py # AI for pulse shaping and gate optimization
+├── qec_decoder.py # ML-based decoder for quantum error correction
+├── utils.py # Fidelity calculation, plotting, state metrics
+├── jobs.py # Job pipeline: simulate, tune, optimize
+├── quantum_control_main.py # CLI or main script to trigger control workflow
+├── pulse_optimizer.py # Fine-tune gate pulse shapes using RL
+├── fidelity_drift_predictor.py # Predicts qubit decoherence based on previous runs
+│
+├── noise_modeling/
+│ └── thermal_noise_estimator.py # Mixes physics-based + ML models for thermal noise
+│
+├── qiskit_runner.py # Executes circuits on Qiskit (local or IBMQ backend)
+├── quantum_job_api.py # REST interface to submit and monitor quantum jobs
+│
+├── config/
+│ └── sim_config.yaml # Configuration file for quantum simulators
+│
+├── circuits/
+│ ├── circuit_templates.py # Modular Qiskit circuit templates
+│ └── qaoa_example.py # Example: QAOA circuit for binary optimization
+│
+├── data/
+│ ├── logs/ # Runtime logs
+│ └── models/ # Trained model weights and checkpoints
+│
+├── tests/
+│ ├── test_simulator.py
+│ ├── test_auto_tuner.py
+│ └── test_gate_optimizer.py
+│
+└── README.md # This documentation file
+
+## 🚀Consideration for data Directory 
+data/
+├── logs/
+│   ├── edge_runtime.log           # Full runtime log of the edge device (rotating file handler recommended)
+│   └── mqtt_events.log            # Logs for MQTT publish/subscribe events
+│
+├── sensor_dumps/
+│   ├── signal_raw_2025_07_04.csv # Raw signal data with timestamp
+│   └── signal_cleaned.csv        # After processing (optional)
+│
+├── model_weights/
+│   ├── anomaly_detector.tflite   # Quantized TFLite model for inference at edge
+│   ├── drift_compensator.onnx    # ONNX model (e.g., LSTM/Kalman)
+│   └── fft_classifier.pth        # PyTorch model, if using edge GPU/TPU
+│
+└── tmp/
+    ├── cache.json                # Temporary session cache
+    └── last_state.pkl   
+
+    
+---
+
+## 🚀 Features
+
+- 🎛️ **Quantum Simulator**: Simulates realistic quantum dot or qubit behavior using Qiskit and QuTiP.
+- 🤖 **Auto Tuner**: Reinforcement learning agent for optimal control voltage discovery.
+- ⚙️ **Gate Optimizer**: ML models to shape quantum gates for higher fidelity.
+- 🧬 **Error Correction Decoder**: Deep learning-based QEC decoding for noisy environments.
+- 📉 **Noise Modeling**: Hybrid ML/physics-based models for estimating thermal and decoherence noise.
+- 🔧 **Pulse Optimization**: Fine-tunes microwave or optical pulse sequences to reduce gate errors.
+- 🌐 **Quantum Job API**: RESTful interface to submit, monitor, and evaluate control jobs remotely.
+
+---
+
+## 🛠️ How to Use
+
+### 🔹 Local Simulator
+```bash
+python quantum_control_main.py --mode simulate --config config/sim_config.yaml
+
+curl -X POST http://localhost:8000/quantum-job --data '{"type": "qaoa", "depth": 2}'

@@ -1,0 +1,48 @@
+# --- Core AWS SDK ---
+boto3>=1.34.0
+botocore>=1.34.0
+
+# --- AWS CLI (optional, if using shell scripts or subprocess for automation) ---
+awscli>=1.32.0
+
+# --- AWS IoT Core MQTT Client ---
+paho-mqtt>=1.6.1
+
+# --- Infrastructure-as-Code & Deployment Tools ---
+aws-cdk.core>=2.0.0  # For AWS CDK (optional)
+cfn-lint>=0.80.0      # CloudFormation template linting
+troposphere>=4.5.0    # Pythonic CloudFormation JSON/YAML generator
+
+# --- AWS Lambda Helpers (for zipping, packaging, testing) ---
+requests>=2.31.0
+python-dotenv>=1.0.1
+aws-lambda-powertools>=2.31.0   # Logging/tracing/metrics (optional)
+
+# --- Storage & Database ---
+smart-open[s3]>=6.4.0           # Open S3 files like local files
+s3transfer>=0.10.0
+pymongo>=4.6.1                  # MongoDB connector
+psycopg2-binary>=2.9.9          # PostgreSQL connector
+
+# --- Monitoring & Logging ---
+watchtower>=3.0.1               # Logging to CloudWatch
+loguru>=0.7.2
+
+# --- Model Registry (if using S3-backed MLflow) ---
+mlflow>=2.12.0
+
+# --- Serialization & Utilities ---
+pyyaml>=6.0.1
+jsonschema>=4.22.0
+
+
+
+#for CI/CD (optional)
+
+# Linting, formatting, and testing
+#black
+#flake8
+#pytest
+#moto          # For mocking AWS in tests
+
+

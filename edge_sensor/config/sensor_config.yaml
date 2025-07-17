@@ -1,0 +1,60 @@
+# edge_sensor/config/sensor_config.yaml
+# Quantum Photon Sensor Configuration
+# Last updated: 2025-07-05
+
+# Sensor hardware configuration
+sensor:
+  # Device identification
+  type: quantum_photon
+  model: QS-300X
+  firmware_version: "2.1.4"  # Add for version tracking
+  
+  # Acquisition parameters
+  sampling:
+    rate_hz: 5000              # Samples per second
+    resolution_bits: 16        # ADC resolution
+    adc_channel: 1             # Hardware channel
+    integration_time_us: 200   # Integration window
+    
+  # Signal processing
+  amplification:
+    gain: 12.5                 # Amplifier gain (dB)
+    auto_gain: false           # Manual gain control
+    gain_range: [1.0, 50.0]    # Valid gain bounds
+    
+  # Calibration parameters
+  calibration:
+    offset: 0.015              # Zero offset correction
+    scale_factor: 1.05         # Linear scale correction
+    baseline_noise_threshold: 0.002  # Noise floor
+    last_calibrated: "2025-07-01"    # Calibration date
+    
+  # Environmental compensation
+  compensation:
+    temperature: true          # Enable temp compensation
+    humidity: false            # Disable humidity compensation
+    pressure: false            # Disable pressure compensation
+    
+  # Data quality and filtering
+  filtering:
+    enable_lowpass: true       # Anti-aliasing filter
+    cutoff_hz: 2000           # Filter cutoff frequency
+    filter_order: 4           # Butterworth filter order
+    
+  # Operational limits and safety
+  limits:
+    max_input_voltage: 3.3    # Maximum input (V)
+    operating_temp_range: [-20, 85]  # Temperature range (°C)
+    max_sampling_rate: 10000  # Hardware limit (Hz)
+    
+  # Data output configuration
+  output:
+    format: "float32"         # Data type
+    units: "photons/s"        # Physical units
+    timestamp_precision: "microsecond"
+    
+  # Error handling
+  error_handling:
+    retry_attempts: 3         # Connection retry count
+    timeout_ms: 1000         # Communication timeout
+    fail_safe_mode: true     # Enable safe mode on errors

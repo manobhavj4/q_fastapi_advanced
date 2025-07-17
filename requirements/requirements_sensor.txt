@@ -1,0 +1,37 @@
+# ---- Core Scientific Libraries ----
+numpy
+scipy
+pandas
+matplotlib
+pyyaml
+joblib
+tqdm
+
+# ---- Machine Learning Inference ----
+scikit-learn
+onnxruntime         # For ONNX models (used for lightweight inference)
+# torch              # Uncomment if PyTorch is used
+tensorflow-lite    # Uncomment if using TFLite models
+
+# ---- Signal Processing ----
+numba
+opencv-python       # Optional: used if your sensor output is visual
+
+# ---- MQTT Communication ----
+paho-mqtt
+
+# ---- Logging ----
+loguru
+
+# ---- Raspberry Pi GPIO (Only for Raspberry Pi hardware) ----
+RPi.GPIO            # Native GPIO access
+#gpiozero            # Higher-level abstraction (optional)
+
+# ---- Development & Testing ----
+pytest
+jupyter             # For running and debugging notebooks
+notebook            # Backend for Jupyter
+ipykernel           # Enable Jupyter kernel interface
+
+# ---- Simulated Sensor Testing ----
+faker               # Useful for generating dummy sensor data (optional)

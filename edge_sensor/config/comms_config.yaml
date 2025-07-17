@@ -1,0 +1,121 @@
+# comms_config.yaml
+# Enhanced configuration with environment variable support and better organization
+
+# Device identification
+device:
+  id: "${DEVICE_ID:-quantum-edge-device-001}"
+  location: "${DEVICE_LOCATION:-unknown}"
+  version: "${DEVICE_VERSION:-1.0.0}"
+
+# MQTT Configuration
+mqtt:
+  broker: "${MQTT_BROKER:-a1b2c3d4e5f6-ats.iot.us-east-1.amazonaws.com}"
+  port: ${MQTT_PORT:-8883}
+  client_id: "${device.id}"
+  topics:
+    data: "${MQTT_TOPIC_DATA:-sensor/edge/${device.id}/data}"
+    telemetry: "${MQTT_TOPIC_TELEMETRY:-sensor/edge/${device.id}/telemetry}"
+    control: "${MQTT_TOPIC_CONTROL:-sensor/edge/${device.id}/control}"
+    status: "${MQTT_TOPIC_STATUS:-sensor/edge/${device.id}/status}"
+  
+  # TLS/SSL Configuration
+  tls:
+    enabled: true
+    ca_cert: "${MQTT_CA_CERT_PATH:-/etc/ssl/certs/AmazonRootCA1.pem}"
+    certfile: "${MQTT_CERT_FILE:-/etc/mqtt/certs/device-certificate.pem.crt}"
+    keyfile: "${MQTT_KEY_FILE:-/etc/mqtt/certs/private.pem.key}"
+    verify_mode: "cert_required"
+    
+  # Connection settings
+  keepalive: ${MQTT_KEEPALIVE:-60}
+  qos: ${MQTT_QOS:-1}
+  retain: ${MQTT_RETAIN:-false}
+  clean_session: ${MQTT_CLEAN_SESSION:-true}
+  
+  # Retry and timeout settings
+  connect_timeout: ${MQTT_CONNECT_TIMEOUT:-10}
+  max_retries: ${MQTT_MAX_RETRIES:-3}
+  retry_interval: ${MQTT_RETRY_INTERVAL:-5}
+
+# AWS S3 Configuration
+s3:
+  bucket_name: "${S3_BUCKET:-qusp-sensor-archive}"
+  region: "${AWS_REGION:-us-east-1}"
+  
+  # Dynamic prefix generation
+  prefixes:
+    data: "${S3_DATA_PREFIX:-edge_devices/${device.id}/data/%Y/%m/%d}"
+    logs: "${S3_LOG_PREFIX:-edge_devices/${device.id}/logs/%Y/%m/%d}"
+    metadata: "${S3_METADATA_PREFIX:-edge_devices/${device.id}/metadata}"
+  
+  # Upload settings
+  multipart_threshold: ${S3_MULTIPART_THRESHOLD:-64MB}
+  max_concurrency: ${S3_MAX_CONCURRENCY:-10}
+  transfer_config:
+    use_threads: true
+    max_bandwidth: "${S3_MAX_BANDWIDTH:-50MB/s}"
+  
+  # Lifecycle and retention
+  lifecycle:
+    transition_to_ia: ${S3_TRANSITION_IA_DAYS:-30}
+    transition_to_glacier: ${S3_TRANSITION_GLACIER_DAYS:-90}
+    delete_after: ${S3_DELETE_AFTER_DAYS:-2555}  # 7 years
+
+# REST API Configuration
+rest_api:
+  enabled: ${REST_API_ENABLED:-true}
+  primary:
+    endpoint: "${REST_API_ENDPOINT:-https://api.qusp.com/ingest}"
+    auth:
+      type: "${REST_API_AUTH_TYPE:-bearer}"
+      token: "${REST_API_TOKEN}"  # Required - set via environment
+    timeout: ${REST_API_TIMEOUT:-30}
+    retry_attempts: ${REST_API_RETRIES:-3}
+    retry_backoff: ${REST_API_BACKOFF:-2}
+  
+  # Fallback endpoint for redundancy
+  fallback:
+    endpoint: "${REST_API_FALLBACK_ENDPOINT}"
+    auth:
+      type: "${REST_API_FALLBACK_AUTH_TYPE:-bearer}"
+      token: "${REST_API_FALLBACK_TOKEN}"
+    enabled: ${REST_API_FALLBACK_ENABLED:-false}
+
+# Logging Configuration
+logging:
+  level: "${LOG_LEVEL:-INFO}"
+  format: "${LOG_FORMAT:-json}"
+  max_size: "${LOG_MAX_SIZE:-10MB}"
+  backup_count: ${LOG_BACKUP_COUNT:-5}
+  destinations:
+    - console
+    - file
+    - s3  # Optional: send logs to S3
+
+# Data handling
+data:
+  batch_size: ${DATA_BATCH_SIZE:-100}
+  flush_interval: ${DATA_FLUSH_INTERVAL:-30}  # seconds
+  compression: "${DATA_COMPRESSION:-gzip}"
+  encryption:
+    enabled: ${DATA_ENCRYPTION_ENABLED:-true}
+    algorithm: "${DATA_ENCRYPTION_ALGO:-AES256}"
+
+# Health monitoring
+health:
+  check_interval: ${HEALTH_CHECK_INTERVAL:-60}  # seconds
+  endpoints:
+    - mqtt
+    - s3
+    - rest_api
+  metrics:
+    enabled: ${METRICS_ENABLED:-true}
+    port: ${METRICS_PORT:-9090}
+
+# Feature flags
+features:
+  offline_mode: ${FEATURE_OFFLINE_MODE:-true}
+  data_validation: ${FEATURE_DATA_VALIDATION:-true}
+  compression: ${FEATURE_COMPRESSION:-true}
+  encryption: ${FEATURE_ENCRYPTION:-true}
+  metrics: ${FEATURE_METRICS:-true}

@@ -1,0 +1,38 @@
+data/
+├── logs/
+│   ├── edge_runtime.log           # Full runtime log of the edge device (rotating file handler recommended)
+│   └── mqtt_events.log            # Logs for MQTT publish/subscribe events
+│
+├── sensor_dumps/
+│   ├── signal_raw_2025_07_04.csv # Raw signal data with timestamp
+│   └── signal_cleaned.csv        # After processing (optional)
+│
+├── model_weights/
+│   ├── anomaly_detector.tflite   # Quantized TFLite model for inference at edge
+│   ├── drift_compensator.onnx    # ONNX model (e.g., LSTM/Kalman)
+│   └── fft_classifier.pth        # PyTorch model, if using edge GPU/TPU
+│
+└── tmp/
+    ├── cache.json                # Temporary session cache
+    └── last_state.pkl            # Last session state if device goes offline
+
+
+
+
+
+example Seneor logging data
+
+import csv
+import os
+from datetime import datetime
+
+def log_sensor_data(data: dict, filename="signal_raw"):
+    os.makedirs("data/sensor_dumps", exist_ok=True)
+    filepath = f"data/sensor_dumps/{filename}_{datetime.now().date()}.csv"
+    file_exists = os.path.isfile(filepath)
+
+    with open(filepath, mode='a', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=data.keys())
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(data)
